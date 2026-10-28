@@ -365,7 +365,7 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-white/[0.05] px-6 py-5 text-center text-xs text-slate-600">
-          © {new Date().getFullYear()} Mohammed Imam Ali · AI Engineer Portfolio
+          © 2026 Mohammed Imam Ali · AI Engineer Portfolio
         </div>
       </footer>
     </main>
