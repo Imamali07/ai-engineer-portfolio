@@ -1,371 +1,305 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
+
+const services = [
+  {
+    number: "01",
+    title: "AI Applications",
+    description:
+      "Practical AI tools that help people work through real problems—from intelligent job-search workflows to data exploration assistants.",
+    items: ["AI-powered applications", "LLM-powered workflows", "Human-centred problem solving"],
+  },
+  {
+    number: "02",
+    title: "Data Intelligence",
+    description:
+      "Turning raw, messy data into clearer information through data cleaning, analysis, validation, and useful visual insights.",
+    items: ["Data analysis & preparation", "Data quality checks", "Insight dashboards"],
+  },
+  {
+    number: "03",
+    title: "AI Automation",
+    description:
+      "Connecting tools and repeatable tasks into useful workflows, with Python, APIs, and automation platforms.",
+    items: ["Python automation", "API integrations", "Workflow orchestration"],
+  },
+  {
+    number: "04",
+    title: "Machine Learning",
+    description:
+      "Building and learning predictive systems, from core machine-learning models to computer-vision experiments.",
+    items: ["Model training & evaluation", "Computer vision", "Model experimentation"],
+  },
+];
 
 const projects = [
   {
     number: "01",
-    name: "Nexus AI Job Search",
-    category: "AI AGENTS / NLP",
+    title: "Nexus AI Job Search",
+    type: "AI AGENTS · NLP",
     description:
-      "An intelligent job-search platform designed to analyze resumes, identify relevant opportunities, and help candidates understand their job readiness.",
-    stack: ["Python", "LLMs", "Ollama", "Flask"],
-    color: "blue",
+      "An intelligent job-search platform designed to analyse resumes, explore relevant opportunities, and help candidates understand their job readiness.",
+    stack: ["Python", "Ollama", "LLMs", "Flask"],
+    visual: "visual-job",
+    label: "CAREER INTELLIGENCE",
   },
   {
     number: "02",
-    name: "AI Data Pipeline Agent",
-    category: "AI AUTOMATION / DATA",
+    title: "AI Data Pipeline Agent",
+    type: "AI AUTOMATION · DATA",
     description:
-      "An AI-assisted pipeline that ingests data, cleans records, validates quality, and prepares information for downstream analysis.",
+      "An AI-assisted workflow concept for ingesting data, cleaning records, validating quality, and preparing information for downstream analysis.",
     stack: ["Python", "FastAPI", "n8n", "RAG"],
-    color: "purple",
+    visual: "visual-pipeline",
+    label: "DATA IN MOTION",
   },
   {
     number: "03",
-    name: "AI Data Analyst Copilot",
-    category: "DATA INTELLIGENCE",
+    title: "AI Data Analyst Copilot",
+    type: "DATA INTELLIGENCE",
     description:
-      "A concept for helping users explore datasets, detect quality issues, generate visualizations, and discover useful insights.",
+      "A data-analysis assistant concept that helps users inspect datasets, find quality issues, create visualisations, and discover useful insights.",
     stack: ["Python", "Pandas", "Streamlit", "LLMs"],
-    color: "cyan",
+    visual: "visual-analyst",
+    label: "ASK YOUR DATA",
   },
   {
     number: "04",
-    name: "Driver Drowsiness Detection",
-    category: "COMPUTER VISION",
+    title: "Driver Drowsiness Detection",
+    type: "COMPUTER VISION",
     description:
-      "A computer-vision application that analyzes facial landmarks and eye movements to detect possible driver drowsiness.",
+      "A computer-vision project using facial landmarks and eye movement patterns to detect possible driver drowsiness.",
     stack: ["Python", "OpenCV", "Dlib", "EAR"],
-    color: "pink",
+    visual: "visual-driver",
+    label: "SAFETY SYSTEMS",
   },
 ];
 
 const skills = [
-  { name: "Python", type: "PROGRAMMING" },
-  { name: "Machine Learning", type: "AI / ML" },
-  { name: "LLMs & RAG", type: "GENERATIVE AI" },
-  { name: "FastAPI", type: "BACKEND" },
-  { name: "SQL", type: "DATA" },
-  { name: "Computer Vision", type: "AI / ML" },
-  { name: "Pandas & NumPy", type: "DATA" },
-  { name: "Git & GitHub", type: "ENGINEERING" },
+  ["Python", "PROGRAMMING"],
+  ["Machine Learning", "AI / ML"],
+  ["LLMs & RAG", "GENERATIVE AI"],
+  ["FastAPI", "BACKEND"],
+  ["SQL", "DATA"],
+  ["Computer Vision", "AI / ML"],
+  ["Pandas & NumPy", "DATA"],
+  ["Git & GitHub", "ENGINEERING"],
 ];
 
 export default function Home() {
+  const [openService, setOpenService] = useState("01");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-
-  function askPortfolio(questionText: string) {
-    const q = questionText.toLowerCase();
-
-    if (q.includes("project")) {
-      setAnswer(
-        "Explore the Projects section to learn about my job-search platform, data pipeline, data analyst copilot, and driver drowsiness detection application."
-      );
-    } else if (q.includes("skill") || q.includes("technology")) {
-      setAnswer(
-        "My portfolio highlights Python, SQL, data processing, machine learning, computer vision, FastAPI, and generative AI technologies. The project cards show the technologies associated with each project."
-      );
-    } else if (q.includes("contact") || q.includes("email")) {
-      setAnswer(
-        "You can connect with me through the LinkedIn and GitHub links in the Contact section. Replace the example links with your real profiles before publishing."
-      );
-    } else if (q.includes("resume") || q.includes("experience")) {
-      setAnswer(
-        "Visit the Resume section to add your latest resume and professional experience. This portfolio is a starting point that you can update with verified details."
-      );
-    } else {
-      setAnswer(
-        "I can help you explore the projects, skills, resume section, and technologies presented on this portfolio. Try asking about my projects or skills."
-      );
-    }
-  }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#070910] text-white">
-      <div className="pointer-events-none fixed inset-0 opacity-30">
-        <div className="absolute left-[10%] top-[-10rem] h-[30rem] w-[30rem] rounded-full bg-blue-600/20 blur-[140px]" />
-        <div className="absolute right-[-8rem] top-[25rem] h-[30rem] w-[30rem] rounded-full bg-violet-600/20 blur-[150px]" />
-      </div>
+    <main className="portfolio-shell min-h-screen overflow-hidden bg-[#0a0a0a] text-[#f4f1ec]">
+      <style jsx global>{`
+        html { scroll-behavior: smooth; background: #0a0a0a; }
+        body { margin: 0; background: #0a0a0a; }
+        ::selection { background: #f04438; color: #fff; }
+        .portfolio-shell { --accent: #f04438; font-family: Arial, Helvetica, sans-serif; }
+        .top-nav { border-bottom: 1px solid rgba(255,255,255,.16); }
+        .nav-link { transition: color .2s ease; }
+        .nav-link:hover { color: var(--accent); }
+        .hero-title-track { animation: name-drift 26s linear infinite; }
+        @keyframes name-drift { from { transform: translateX(0); } to { transform: translateX(-38%); } }
+        .hero-photo { filter: grayscale(100%) contrast(1.06); }
+        .hero-photo-wrap:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(10,10,10,.03),transparent 45%,rgba(10,10,10,.08)); pointer-events:none; }
+        .eyebrow { color: var(--accent); letter-spacing: .19em; }
+        .outline-number { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.38); line-height: .82; }
+        .service-row { border-top: 1px solid rgba(255,255,255,.19); }
+        .service-row:last-child { border-bottom: 1px solid rgba(255,255,255,.19); }
+        .service-content { animation: reveal .28s ease both; }
+        @keyframes reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .project-visual { position:relative; min-height:250px; overflow:hidden; background:#171717; }
+        .project-visual:before { content:""; position:absolute; inset:0; opacity:.9; }
+        .visual-job:before { background: radial-gradient(ellipse at 65% 35%,rgba(240,68,56,.48),transparent 34%), linear-gradient(135deg,#1a1a1a,#303030 55%,#111); }
+        .visual-pipeline:before { background: radial-gradient(circle at 28% 35%,rgba(240,68,56,.38),transparent 23%), radial-gradient(circle at 75% 70%,rgba(255,255,255,.13),transparent 30%), #151515; }
+        .visual-analyst:before { background: linear-gradient(145deg,transparent 30%,rgba(240,68,56,.3)), repeating-linear-gradient(90deg,#171717 0 42px,#292929 43px 44px); }
+        .visual-driver:before { background: radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.22),transparent 23%), radial-gradient(ellipse at 50% 40%,transparent 0 29%,rgba(240,68,56,.45) 30% 30.5%,transparent 31%), #151515; }
+        .visual-orbit { position:absolute; left:50%; top:50%; width:155px; height:155px; transform:translate(-50%,-50%); border:1px solid rgba(255,255,255,.45); border-radius:50%; }
+        .visual-orbit:before,.visual-orbit:after { content:""; position:absolute; inset:17px; border:1px solid rgba(255,255,255,.25); border-radius:50%; transform:rotate(50deg) scaleX(.45); }
+        .visual-orbit:after { transform:rotate(-50deg) scaleX(.45); }
+        .project-card { transition: transform .35s ease, border-color .35s ease; }
+        .project-card:hover { transform: translateY(-5px); border-color:rgba(240,68,56,.55); }
+        .project-card:hover .visual-orbit { transform:translate(-50%,-50%) rotate(22deg) scale(1.06); transition:transform .6s ease; }
+        .red-link { transition:gap .2s ease,color .2s ease; }
+        .red-link:hover { color:var(--accent); }
+        @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+      `}</style>
 
-      <header className="relative z-20 border-b border-white/[0.08] bg-[#070910]/80 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-          <a href="#home" className="text-lg font-bold tracking-tight">
-            IMAM<span className="text-blue-400">.AI</span>
-            <span className="ml-3 hidden border-l border-white/20 pl-3 text-xs font-normal tracking-widest text-slate-500 sm:inline">
-              ENGINEERING LAB
-            </span>
-          </a>
-
+      <header className="top-nav relative z-20">
+        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 md:px-10">
+          <a href="#home" className="text-sm font-bold tracking-[.13em]">IMAM ALI <span className="text-[#f04438]">/</span> AI</a>
           <button
-            className="rounded-lg border border-white/10 px-3 py-2 text-sm md:hidden"
+            className="border border-white/25 px-3 py-2 text-xs uppercase tracking-widest md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-expanded={menuOpen}
-            aria-label="Toggle navigation"
           >
             {menuOpen ? "Close" : "Menu"}
           </button>
-
-          <div
-            className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-b border-white/10 bg-[#0b0d17] px-6 py-6 text-sm text-slate-300 md:static md:flex md:flex-row md:items-center md:border-0 md:bg-transparent md:p-0`}
-          >
-            <a onClick={() => setMenuOpen(false)} className="hover:text-blue-400" href="#projects">Projects</a>
-            <a onClick={() => setMenuOpen(false)} className="hover:text-blue-400" href="#lab">AI Lab</a>
-            <a onClick={() => setMenuOpen(false)} className="hover:text-blue-400" href="#skills">Skills</a>
-            <a onClick={() => setMenuOpen(false)} className="hover:text-blue-400" href="#contact">Contact</a>
-            <a href="#resume" className="rounded-full border border-blue-400/40 px-5 py-2.5 text-center text-blue-300 transition hover:bg-blue-400/10">
-              View Resume ↗
-            </a>
+          <div className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-b border-white/15 bg-[#0a0a0a] px-5 py-6 text-xs uppercase tracking-widest md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0`}>
+            {[["About", "#about"], ["Services", "#services"], ["Projects", "#projects"], ["Skills", "#skills"], ["Contact", "#contact"]].map(([label, href]) => (
+              <a key={label} href={href} onClick={() => setMenuOpen(false)} className="nav-link">{label}</a>
+            ))}
+            <a href="#contact" onClick={() => setMenuOpen(false)} className="border border-white/30 px-4 py-3 text-center transition hover:border-[#f04438] hover:text-[#f04438]">Let&apos;s talk ↗</a>
           </div>
         </nav>
       </header>
 
-      <section id="home" className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 py-24 lg:min-h-[690px] lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-28">
+      <section id="home" className="relative mx-auto max-w-[1440px] px-5 pb-16 pt-8 md:px-10 md:pt-12">
+        <div className="mb-3 flex items-center justify-between text-[10px] uppercase tracking-[.22em] text-white/50 md:text-xs">
+          <span>AI Engineer · Portfolio 2026</span>
+          <span>Based in India · Open to opportunities</span>
+        </div>
+        <div className="hero-photo-wrap relative h-[440px] overflow-hidden border-y border-white/15 sm:h-[540px] md:h-[650px]">
+          <Image
+            src="/profile.jpg"
+            alt="Portrait of Mohammed Imam Ali"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 1440px"
+            className="hero-photo object-cover object-[center_35%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/5" />
+          <div className="absolute inset-0 flex items-center overflow-hidden">
+            <div className="hero-title-track flex w-max whitespace-nowrap">
+              <span className="px-5 text-[22vw] font-semibold leading-none tracking-[-.085em] text-[#0a0a0a] mix-blend-screen sm:text-[18vw]">Mohammed Imam Ali — </span>
+              <span className="px-5 text-[22vw] font-semibold leading-none tracking-[-.085em] text-[#0a0a0a] mix-blend-screen sm:text-[18vw]">Mohammed Imam Ali — </span>
+            </div>
+          </div>
+          <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 md:bottom-8 md:left-8 md:right-8">
+            <div>
+              <p className="eyebrow mb-3 text-[10px] font-bold uppercase md:text-xs">Building useful intelligence</p>
+              <h1 className="max-w-xl text-3xl font-medium leading-tight sm:text-5xl md:text-6xl">I build AI systems for <span className="text-[#f04438]">real-world</span> problems.</h1>
+            </div>
+            <a href="#projects" className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/60 text-2xl transition hover:border-[#f04438] hover:bg-[#f04438] md:flex" aria-label="Scroll to projects">↓</a>
+          </div>
+        </div>
+        <div className="mt-5 grid gap-5 text-sm text-white/65 md:grid-cols-[1fr_1fr_auto] md:items-start">
+          <p className="max-w-md">Aspiring AI Engineer focused on practical applications, intelligent automation, and data-driven solutions.</p>
+          <p className="max-w-md">Python · Machine Learning · Generative AI · Data Engineering</p>
+          <a href="#about" className="red-link flex items-center gap-2 text-xs uppercase tracking-[.16em] text-white">Discover more <span className="text-[#f04438]">↘</span></a>
+        </div>
+      </section>
+
+      <section id="about" className="mx-auto grid max-w-[1440px] gap-10 px-5 py-24 md:grid-cols-[.75fr_1.25fr] md:px-10 md:py-32">
         <div>
-          <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-4 py-2 text-xs tracking-wide text-emerald-300">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-            AI ENGINEER PORTFOLIO
-          </div>
-
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-blue-400">
-            Building intelligent systems
-          </p>
-
-          <h1 className="max-w-3xl text-5xl font-semibold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
-            Turning ideas
-            <br />
-            into{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-300 bg-clip-text text-transparent">
-              intelligent
-            </span>
-            <br />
-            systems.
-          </h1>
-
-          <p className="mt-7 max-w-xl text-base leading-8 text-slate-400 sm:text-lg">
-            I&apos;m Mohammed Imam Ali, an aspiring AI Engineer focused on
-            developing practical AI applications, intelligent automation, and
-            data-driven solutions to real-world problems.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#projects" className="rounded-xl bg-blue-500 px-6 py-3.5 text-sm font-semibold shadow-lg shadow-blue-500/20 transition hover:-translate-y-1 hover:bg-blue-400">
-              Explore Projects <span className="ml-2">↗</span>
-            </a>
-            <a href="#lab" className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-violet-400/50 hover:bg-white/[0.06]">
-              Enter AI Lab
-            </a>
-          </div>
-
-          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.16em] text-slate-500">
-            <span>Python</span>
-            <span>Machine Learning</span>
-            <span>LLMs & RAG</span>
-            <span>AI Automation</span>
-          </div>
+          <p className="eyebrow text-[10px] font-bold uppercase">01 / About me</p>
+          <p className="mt-6 max-w-xs text-sm leading-7 text-white/50">Curiosity first. Useful technology always.</p>
         </div>
-
-        <div className="relative mx-auto w-full max-w-lg">
-          <div className="absolute inset-8 rounded-full bg-blue-500/20 blur-[90px]" />
-          <div className="relative rounded-3xl border border-white/10 bg-white/[0.035] p-5 shadow-2xl shadow-blue-950/30 backdrop-blur-xl sm:p-7">
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-5">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">System overview</p>
-                <h2 className="mt-2 text-lg font-semibold">AI Engineering Lab</h2>
-              </div>
-              <div className="rounded-xl border border-blue-400/20 bg-blue-400/10 p-3 text-xl text-blue-300">
-                ⌘
-              </div>
-            </div>
-
-            <div className="my-7 flex items-center justify-center">
-              <div className="relative flex h-52 w-52 items-center justify-center rounded-full border border-blue-400/20">
-                <div className="absolute inset-4 animate-[spin_18s_linear_infinite] rounded-full border border-dashed border-violet-400/40" />
-                <div className="absolute inset-10 rounded-full border border-cyan-300/20" />
-                <div className="flex h-24 w-24 items-center justify-center rounded-3xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 to-violet-500/20 shadow-[0_0_60px_rgba(59,130,246,0.15)]">
-                  <span className="text-3xl font-bold tracking-tighter">AI</span>
-                </div>
-                <span className="absolute left-0 top-12 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_15px_#67e8f9]" />
-                <span className="absolute right-3 top-20 h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_15px_#a78bfa]" />
-                <span className="absolute bottom-6 left-9 h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_15px_#60a5fa]" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                ["01", "AI APPLICATIONS"],
-                ["02", "DATA INTELLIGENCE"],
-                ["03", "LLM SYSTEMS"],
-                ["04", "AUTOMATION"],
-              ].map(([number, label]) => (
-                <div key={number} className="rounded-xl border border-white/[0.07] bg-black/20 p-4">
-                  <span className="text-xs text-blue-400">{number}</span>
-                  <p className="mt-2 text-[10px] tracking-[0.12em] text-slate-400 sm:text-xs">{label}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-5 flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/20 p-4">
-              <span className="h-2 w-2 rounded-full bg-blue-400" />
-              <span className="text-xs text-slate-400">Explore the projects to see how each system works.</span>
-            </div>
+        <div>
+          <h2 className="max-w-4xl text-3xl font-medium leading-[1.2] tracking-[-.04em] sm:text-4xl md:text-6xl">I&apos;m Mohammed Imam Ali, an aspiring AI Engineer interested in turning complex ideas into <span className="text-[#f04438]">clear, practical tools.</span></h2>
+          <div className="mt-8 grid gap-6 text-sm leading-7 text-white/60 sm:grid-cols-2">
+            <p>I enjoy building projects that connect software, data, and AI—from resume-aware job-search tools to data workflows and computer-vision experiments.</p>
+            <p>My approach is hands-on: learn the fundamentals, build a working version, test it, and improve it based on real needs. I am continuing to grow my engineering skills through practical projects.</p>
           </div>
-          <p className="mt-4 text-center text-[10px] tracking-[0.25em] text-slate-600">EXPERIMENT · ENGINEER · IMPROVE</p>
         </div>
       </section>
 
-      <section className="relative border-y border-white/[0.06] bg-white/[0.015]">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-8 sm:grid-cols-3 lg:px-10">
-          {[
-            ["BUILD", "Practical AI applications"],
-            ["EXPLORE", "Intelligent system architecture"],
-            ["SOLVE", "Real-world engineering problems"],
-          ].map(([title, description]) => (
-            <div key={title} className="flex items-start gap-4">
-              <span className="mt-1 text-sm font-bold text-blue-400">/ {title}</span>
-              <p className="text-sm text-slate-400">{description}</p>
+      <section id="services" className="border-y border-white/15 bg-[#111111]">
+        <div className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-28">
+          <div className="mb-14 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="eyebrow text-[10px] font-bold uppercase">What I focus on</p>
+              <h2 className="mt-5 text-4xl font-medium tracking-[-.05em] sm:text-6xl">Areas of work<span className="text-[#f04438]">.</span></h2>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="projects" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mb-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <p className="max-w-sm text-sm leading-7 text-white/55">A growing toolkit for designing and building useful intelligent systems.</p>
+          </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-400">Selected engineering work</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Project laboratory<span className="text-blue-400">.</span></h2>
-            <p className="mt-4 max-w-2xl leading-7 text-slate-400">
-              Explore the applications I&apos;m building and the technologies behind them.
-            </p>
+            {services.map((service) => (
+              <div key={service.number} className="service-row grid gap-5 py-8 md:grid-cols-[.75fr_1.25fr] md:py-10">
+                <button onClick={() => setOpenService(openService === service.number ? "" : service.number)} className="group grid grid-cols-[100px_1fr_auto] items-center gap-4 text-left sm:grid-cols-[150px_1fr_auto]">
+                  <span className="outline-number text-7xl font-semibold sm:text-8xl md:text-[130px]">{service.number}</span>
+                  <span className="text-xl font-medium tracking-tight sm:text-2xl md:text-3xl">{service.title}</span>
+                  <span className={`text-2xl transition ${openService === service.number ? "rotate-45 text-[#f04438]" : "text-white/45"}`}>+</span>
+                </button>
+                {openService === service.number && (
+                  <div className="service-content grid gap-5 pl-1 md:grid-cols-2 md:pl-8">
+                    <p className="max-w-lg text-sm leading-7 text-white/60">{service.description}</p>
+                    <ul className="space-y-3 text-sm text-white/75">
+                      {service.items.map((item) => <li key={item} className="flex items-center justify-between border-b border-white/10 pb-3">{item}<span className="text-[#f04438]">↗</span></li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          <span className="text-sm text-slate-500">PROJECT INDEX / 001—004</span>
         </div>
+      </section>
 
+      <section id="projects" className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p className="eyebrow text-[10px] font-bold uppercase">Selected work · 001—004</p>
+            <h2 className="mt-5 text-4xl font-medium tracking-[-.05em] sm:text-6xl">Projects in progress<span className="text-[#f04438]">.</span></h2>
+          </div>
+          <p className="max-w-sm text-sm leading-7 text-white/55">A selection of AI and data projects exploring practical problems and possible solutions.</p>
+        </div>
         <div className="grid gap-5 md:grid-cols-2">
           {projects.map((project) => (
-            <article key={project.number} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-400/30 hover:bg-white/[0.04] sm:p-8">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-sm text-slate-500">{project.number} / 04</span>
-                <span className={`h-2 w-2 rounded-full ${project.color === "purple" ? "bg-violet-400" : project.color === "cyan" ? "bg-cyan-300" : project.color === "pink" ? "bg-pink-400" : "bg-blue-400"}`} />
+            <article key={project.number} className="project-card overflow-hidden border border-white/15 bg-[#111111]">
+              <div className={`project-visual ${project.visual}`}>
+                <div className="visual-orbit" />
+                <div className="absolute left-5 top-5 z-10 text-[10px] uppercase tracking-[.2em] text-white/70">{project.label}</div>
+                <div className="absolute bottom-5 left-5 z-10 font-mono text-xs text-white/60">IMAM.AI / {project.number}</div>
+                <span className="absolute right-5 top-5 z-10 text-xl text-[#f04438]">↗</span>
               </div>
-              <p className="mt-8 text-[10px] font-semibold tracking-[0.2em] text-blue-400">{project.category}</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight">{project.name}</h3>
-              <p className="mt-4 min-h-20 text-sm leading-7 text-slate-400">{project.description}</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {project.stack.map((technology) => (
-                  <span key={technology} className="rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs text-slate-300">
-                    {technology}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-7 border-t border-white/[0.07] pt-5">
-                <a href="#contact" className="text-sm font-medium text-slate-300 transition group-hover:text-blue-300">
-                  Explore project details <span className="ml-1">↗</span>
-                </a>
+              <div className="p-6 sm:p-8">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="eyebrow text-[10px] font-bold uppercase">{project.type}</p>
+                  <span className="text-xs text-white/35">{project.number} / 04</span>
+                </div>
+                <h3 className="mt-4 text-2xl font-medium tracking-tight sm:text-3xl">{project.title}</h3>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/60">{project.description}</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {project.stack.map((tech) => <span key={tech} className="border border-white/15 px-3 py-2 text-[10px] uppercase tracking-wider text-white/65">{tech}</span>)}
+                </div>
               </div>
             </article>
           ))}
         </div>
-        <p className="mt-6 text-xs leading-6 text-slate-600">
-          Project descriptions represent the intended capabilities of these projects. Update each card with verified implementation details, working demos, and repository links before publishing.
-        </p>
+        <p className="mt-6 text-xs leading-6 text-white/35">Keep project descriptions aligned with what is currently implemented. Add repository and live-demo links once they are ready.</p>
       </section>
 
-      <section id="lab" className="relative border-y border-white/[0.07] bg-[#0b0e19]">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-28">
+      <section id="skills" className="border-y border-white/15 bg-[#111111]">
+        <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-20 md:grid-cols-[.7fr_1.3fr] md:px-10 md:py-28">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-violet-400">Interactive experience</p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">Ask the portfolio<span className="text-violet-400">.</span></h2>
-            <p className="mt-5 leading-8 text-slate-400">
-              Explore the portfolio using natural language. This first version uses a small set of predefined responses. We can connect a real LLM and RAG backend in a later step.
-            </p>
-            <div className="mt-8 space-y-3">
-              {["What projects are available?", "What technologies do you use?", "How can I contact you?"].map((prompt) => (
-                <button key={prompt} onClick={() => { setQuestion(prompt); askPortfolio(prompt); }} className="block w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3 text-left text-sm text-slate-300 transition hover:border-violet-400/40 hover:bg-violet-400/[0.05]">
-                  <span className="mr-3 text-violet-400">↳</span>{prompt}
-                </button>
-              ))}
-            </div>
+            <p className="eyebrow text-[10px] font-bold uppercase">Tools of the trade</p>
+            <h2 className="mt-5 text-4xl font-medium tracking-[-.05em] sm:text-6xl">Technical toolkit<span className="text-[#f04438]">.</span></h2>
           </div>
-
-          <div className="flex min-h-[420px] flex-col rounded-2xl border border-white/10 bg-[#070910] p-5 shadow-2xl sm:p-7">
-            <div className="flex items-center gap-3 border-b border-white/[0.08] pb-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 font-bold">AI</div>
-              <div>
-                <p className="text-sm font-semibold">Portfolio Assistant</p>
-                <p className="mt-1 text-xs text-slate-500">Interactive preview · Demo mode</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {skills.map(([name, type]) => (
+              <div key={name} className="flex items-center justify-between border-b border-white/15 py-5">
+                <div><p className="text-lg">{name}</p><p className="mt-1 text-[9px] uppercase tracking-[.18em] text-white/40">{type}</p></div>
+                <span className="text-[#f04438]">↗</span>
               </div>
-              <span className="ml-auto rounded-full border border-amber-400/20 bg-amber-400/[0.06] px-2 py-1 text-[10px] text-amber-300">DEMO</span>
-            </div>
-
-            <div className="flex-1 py-6">
-              <div className="max-w-md rounded-xl border border-white/[0.08] bg-white/[0.035] p-4 text-sm leading-7 text-slate-300">
-                Hello! I&apos;m the portfolio assistant. Ask me about the projects, technical skills, or contact information presented on this page.
-              </div>
-              {answer && (
-                <div className="ml-auto mt-5 max-w-md rounded-xl border border-blue-400/20 bg-blue-400/[0.07] p-4 text-sm leading-7 text-slate-200">
-                  <p className="mb-2 text-xs text-blue-300">Portfolio Assistant</p>
-                  {answer}
-                </div>
-              )}
-            </div>
-
-            <form onSubmit={(event) => { event.preventDefault(); if (question.trim()) askPortfolio(question); }} className="flex gap-2 border-t border-white/[0.08] pt-5">
-              <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about projects or skills..." className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none placeholder:text-slate-600 focus:border-blue-400/50" />
-              <button type="submit" className="rounded-xl bg-blue-500 px-5 text-sm font-semibold transition hover:bg-blue-400">Ask ↗</button>
-            </form>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="skills" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-28">
-        <div className="mb-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-cyan-400">Technical toolkit</p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Engineering skills<span className="text-cyan-400">.</span></h2>
-          <p className="mt-4 text-slate-400">A selection of technologies associated with my AI and software projects.</p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {skills.map((skill) => (
-            <div key={skill.name} className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 transition hover:border-cyan-300/30">
-              <p className="text-[10px] tracking-[0.2em] text-slate-500">{skill.type}</p>
-              <h3 className="mt-4 text-lg font-medium">{skill.name}</h3>
-              <div className="mt-5 h-px bg-gradient-to-r from-cyan-400/50 to-transparent" />
-            </div>
-          ))}
-        </div>
-        <p className="mt-5 text-xs text-slate-600">Adjust this list to reflect the technologies you can confidently explain and demonstrate.</p>
-      </section>
-
-      <section id="resume" className="relative mx-6 mb-24 overflow-hidden rounded-3xl border border-blue-400/20 bg-gradient-to-br from-blue-500/[0.10] via-[#0b0e19] to-violet-500/[0.10] sm:mx-auto sm:max-w-7xl">
-        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-500/10 blur-[80px]" />
-        <div className="relative flex flex-col justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center lg:p-16">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-400">Professional profile</p>
-            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Let&apos;s build something meaningful.</h2>
-            <p className="mt-4 max-w-xl leading-7 text-slate-400">Add your current resume PDF here so recruiters can review your verified skills, projects, and experience.</p>
+      <section id="contact" className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+        <div className="border border-white/20 p-7 sm:p-12 md:p-16">
+          <p className="eyebrow text-[10px] font-bold uppercase">Have a problem to solve?</p>
+          <div className="mt-6 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+            <h2 className="max-w-4xl text-4xl font-medium leading-[1.08] tracking-[-.05em] sm:text-6xl md:text-7xl">Let&apos;s build something <span className="text-[#f04438]">meaningful.</span></h2>
+            <a href="https://github.com/Imamali07" target="_blank" rel="noreferrer" className="red-link flex items-center gap-3 text-sm uppercase tracking-widest">Visit my GitHub <span className="text-xl text-[#f04438]">↗</span></a>
           </div>
-          <a href="#contact" className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-4 text-sm font-semibold text-[#080a12] transition hover:-translate-y-1 hover:bg-blue-100">
-            Resume coming soon ↗
-          </a>
+          <div className="mt-10 flex flex-wrap gap-4 border-t border-white/15 pt-6 text-sm text-white/60">
+            <a href="https://github.com/Imamali07" target="_blank" rel="noreferrer" className="nav-link">GitHub ↗</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="nav-link">LinkedIn ↗ <span className="text-white/30">(replace with your profile)</span></a>
+            <a href="mailto:" className="nav-link">Email ↗ <span className="text-white/30">(add your email)</span></a>
+          </div>
         </div>
       </section>
 
-      <footer id="contact" className="relative border-t border-white/[0.08]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <div>
-            <a href="#home" className="text-lg font-bold">IMAM<span className="text-blue-400">.AI</span></a>
-            <p className="mt-2 text-sm text-slate-500">Building, learning, and engineering intelligent systems.</p>
-          </div>
-          <div className="flex flex-wrap gap-5 text-sm text-slate-400">
-            <a href="https://github.com/" target="_blank" rel="noreferrer" className="transition hover:text-blue-400">GitHub ↗</a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="transition hover:text-blue-400">LinkedIn ↗</a>
-            <a href="#home" className="transition hover:text-blue-400">Back to top ↑</a>
-          </div>
-        </div>
-        <div className="border-t border-white/[0.05] px-6 py-5 text-center text-xs text-slate-600">
-          © 2026 Mohammed Imam Ali · AI Engineer Portfolio
+      <footer className="border-t border-white/15 px-5 py-6 md:px-10">
+        <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-3 text-[10px] uppercase tracking-[.15em] text-white/40 sm:flex-row">
+          <span>© 2026 Mohammed Imam Ali</span>
+          <span>Designed to build useful intelligence <span className="text-[#f04438]">●</span></span>
+          <a href="#home" className="nav-link">Back to top ↑</a>
         </div>
       </footer>
     </main>
